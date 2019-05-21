@@ -4,9 +4,12 @@
 
 LiquidCrystal lcd(12,11,5,4,3,2);
 
+int titresim = 8;
 
-void setup()
-{
+void setup(){
+
+  pinMode(titresim,OUTPUT);
+  digitalWrite(titresim,LOW);
   lcd.begin(16,2);
   lcd.print("GomuluProje");
   
@@ -94,7 +97,11 @@ void loop(){
             lcd.setCursor(0,0);
             lcd.print(gelen.substring(bas,son));
           }
-          
+          if((gelen.indexOf("zil")>1)){
+            digitalWrite(titresim,HIGH);
+            delay(1000);
+            digitalWrite(titresim,LOW);
+         }
         }
     }
   }
