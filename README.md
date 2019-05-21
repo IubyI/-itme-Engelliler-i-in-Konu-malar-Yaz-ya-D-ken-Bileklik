@@ -1,2 +1,2 @@
-# -itme-Engelliler-i-in-Konu-malar-Yaz-ya-D-ken-Bileklik
+# Isitme-Engelliler-Icin-Konusmalari-Yaziya-Doken-Bileklik
 Gömülü Sistemler Dersi Proje Ödevi
