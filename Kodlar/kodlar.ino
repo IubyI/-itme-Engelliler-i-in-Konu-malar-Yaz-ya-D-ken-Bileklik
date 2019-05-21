@@ -37,6 +37,7 @@ void loop(){
   
   if(Serial.available()>0){
     if(Serial.find("+IPD,")){
+      //html kodları ile server'a yazı yazıyoruz
       String metin = "<head> Isitme Engelliler Icin Proje </head>";
       String cipsend = "AT+CIPSEND=";
       cipsend +="0";
@@ -49,9 +50,10 @@ void loop(){
       String gelen ="";
       char serialdenokunan;
       while(Serial.available()>0){
-        serialdenokunan = Serial.read();
-        gelen +=serialdenokunan;
+        serialdenokunan = Serial.read();  //serial ekranda gelen cevapları baştaki karakterden başlayarak değişkene atıyoruz
+        gelen +=serialdenokunan;   //her döngüde aldığımız karakter değişkenleri ile string oluşturuyoruz
       }
+        //ekrandan okuduğumuz cevaplarda tanımlı olmayan boşluk ve türkçe karakterleri tanımlıyoruz
         gelen.replace("%20", " ");
         gelen.replace("%C3%A7", "c");
         gelen.replace("%C3%87", "C");
@@ -66,7 +68,7 @@ void loop(){
         gelen.replace("%C3%9C", "U");
         
         if(gelen != ""){
-          for(int i=0; i<gelen.length(); i++){
+          for(int i=0; i<gelen.length(); i++){  //okuduğuz cevabın içinde telefondan gönderdiğimiz sözlerin başlangıç ve bitiş değerlerini buluyoruz
             if(gelen.substring(i,i+1) == "/"){
               if(x == 1){
                 x = 0;
@@ -87,6 +89,7 @@ void loop(){
           }
           Serial.println(gelen);
           lcd.clear();
+          //metnin uzunluğu 16 dan fazla ise satır uzunluğu 16 olan lcd de alt satıra geçilir
           if(son-bas > 16){
             lcd.setCursor(0,0);
             lcd.print(gelen.substring(bas,bas+16));
@@ -97,6 +100,7 @@ void loop(){
             lcd.setCursor(0,0);
             lcd.print(gelen.substring(bas,son));
           }
+          //Zile basıldığında motorun 1 saniye titreşmesini sağlar.
           if((gelen.indexOf("zil")>1)){
             digitalWrite(titresim,HIGH);
             delay(1000);
