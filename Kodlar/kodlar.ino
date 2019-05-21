@@ -1,8 +1,8 @@
-#include <LiquidCrystal.h>
+#include <LiquidCrystal.h>  //LCD kütüphanesi
 #define ag_ismi "UBY"
 #define ag_sifresi "1234qwer"
 
-LiquidCrystal lcd(12,11,5,4,3,2);
+LiquidCrystal lcd(12,11,5,4,3,2);  //LCD pinleri tanımlama
 
 int titresim = 8;
 
@@ -13,12 +13,12 @@ void setup(){
   lcd.begin(16,2);
   lcd.print("GomuluProje");
   
-  Serial.begin(115200);
-  Serial.println("AT");
-  delay(3000);
+  Serial.begin(115200);  //ESP modülünün baudRate değeri 115200 olduğu için bizde Seriport'u 115200 şeklinde seçiyoruz
+  Serial.println("AT");  //ESP modülümüz ile bağlantı kurulup kurulmadığını kontrol ediyoruz.
+  delay(3000);  //ESP ile iletişim için 3 saniye bekliyoruz.
  
-  if(Serial.find("OK")){
-     Serial.println("AT+CWMODE=1");
+  if(Serial.find("OK")){  //esp modülü ile bağlantıyı kurabilmişsek wifi bağlantı aşamalarına geçiyoruz.
+     Serial.println("AT+CWMODE=1");  //esp modülümüzün WiFi modunu STA şekline getiriyoruz. Bu mod ile modülümüz başka ağlara bağlanabilecek.
      delay(2000);
      String baglantiKomutu=String("AT+CWJAP=\"")+ag_ismi+"\",\""+ag_sifresi+"\"";
      Serial.println(baglantiKomutu);
